@@ -16,28 +16,10 @@ def gemini(query: str):
     print(f"\n{response.text}\n")
 
 @app.command()
-def datahoje():
-    data = date.today()
-    dataFormat = data.strftime('%d/%m/%Y') 
-    print(f"\nA data de hoje é: {dataFormat}\n")
-
-@app.command()
-def soma(nm: Annotated[Optional[List[float]], typer.Option()] = None):
-    total = 0
-    for n in nm:
-        total += n
-    print(f"\n{total}\n")
-
-@app.command()
-def expoente(nm: float = typer.Option(), exp: int = typer.Option()):
-    try:
-        total = nm**exp
-        print(f"\n{total}\n")
-    except:
-        print("Algo deu errado, verifique os dados digitados.")
-
-    
-
+def gemini_file(file, query: str):
+    f = open(file, "r")
+    response = model.generate_content([f.read(), query])
+    print(f"\n{response.text}\n")
 
 
 if __name__ == "__main__":
